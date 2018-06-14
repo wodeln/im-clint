@@ -54,6 +54,11 @@
             img{
                 display: block;
                 width: 100%;
+                opacity: 0;
+                transition: opacity .5s ease-in;
+                &[lazy="loaded"], &[lazy="error"] {
+                    opacity: 1
+                }
             }
             .attention{
                 position: absolute;
