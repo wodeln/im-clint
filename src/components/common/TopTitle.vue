@@ -1,9 +1,7 @@
 <template>
     <div>
         <mt-header fixed :title="tTitle" class="im-header">
-            <router-link to="this.$router.go(-1)" slot="left">
-                <mt-button icon="back"></mt-button>
-            </router-link>
+            <mt-button slot="left" icon="back" @click="goBack" v-if="!ifHome"></mt-button>
         </mt-header>
     </div>
 </template>
@@ -18,8 +16,8 @@
         },
         props:['tTitle','ifHome'],
         methods:{
-            handleClose:function () {
-
+            goBack:function () {
+                this.$router.go(-1)
             }
         }
     }

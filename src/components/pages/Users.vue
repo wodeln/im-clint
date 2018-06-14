@@ -1,12 +1,12 @@
 <template>
     <div class="page">
-        <top-title :tTitle="tTitle"/>
+        <top-title :tTitle="tTitle,ifHome"/>
         <div class="page-content">
-            <div class="music-list">
+            <div class="im-user-list">
                 <ul>
                     <router-link
                         tag='li'
-                        :to="{name: 'userInfo', params: { id: user.user_id }}"
+                        :to="{name: 'user-info', params: { id: user.user_id }}"
                         v-for="user in users">
 
                         <mt-cell class="im-cell">
@@ -44,7 +44,8 @@
         data(){
             return{
                 users: users,
-                tTitle: '找朋友'
+                tTitle: '找朋友',
+                ifHome: true
             }
         },
         components: {
