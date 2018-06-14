@@ -1,6 +1,6 @@
 <template>
     <div>
-        <mt-header fixed :title="tTitle"></mt-header>
+        <mt-header fixed :title="tTitle" class="im-header"></mt-header>
     </div>
 </template>
 
@@ -15,6 +15,9 @@
     }
 </script>
 
-<style>
-
+<style lang="scss">
+    .im-header {
+        justify-content: space-between;
+        font-size: 18px;
+    }
 </style>
