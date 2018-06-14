@@ -1,6 +1,10 @@
 <template>
     <div>
-        <mt-header fixed :title="tTitle" class="im-header"></mt-header>
+        <mt-header fixed :title="tTitle" class="im-header">
+            <router-link to="this.$router.go(-1)" slot="left">
+                <mt-button icon="back"></mt-button>
+            </router-link>
+        </mt-header>
     </div>
 </template>
 
@@ -9,7 +13,13 @@
         name: "TopTitle",
         data(){
             return{
-                tTitle:"找朋友"
+                msg:"找朋友"
+            }
+        },
+        props:['tTitle','ifHome'],
+        methods:{
+            handleClose:function () {
+
             }
         }
     }

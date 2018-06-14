@@ -1,11 +1,9 @@
 <template>
     <div class="page">
-        <top-title/>
+        <top-title :tTitle="tTitle"/>
         <div class="page-content">
             <div class="music-list">
                 <ul>
-
-
                     <router-link
                         tag='li'
                         :to="{name: 'userInfo', params: { id: user.user_id }}"
@@ -45,7 +43,8 @@
         name: "Users",
         data(){
             return{
-                users: users
+                users: users,
+                tTitle: '找朋友'
             }
         },
         components: {
@@ -103,6 +102,9 @@
                 text-overflow: ellipsis;
                 font-size: 14px;
                 line-height: 30px;
+            }
+            li>span{
+                margin-right: 5px;
             }
             .im-user-stata-message {
                 color: rgba(0, 0, 0, .5);
