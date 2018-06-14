@@ -7,7 +7,8 @@
                     <router-link
                         tag='li'
                         :to="{name: 'user-info', params: { id: user.user_id }}"
-                        v-for="user in users">
+                        v-for="user in users"
+                        :key="user.user_id">
 
                         <mt-cell class="im-cell">
                             <div class="im-avatar">
