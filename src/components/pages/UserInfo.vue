@@ -14,7 +14,9 @@
                     <div class="im-user-nickname"><span class="str">个性签名：</span>{{userInfo.stata_message}}</div>
                 </div>
             </div>
-            <mt-button type="primary" :disabled="!attentionMe" class="send-message">发送消息</mt-button>
+            <router-link :to="{name: 'message', params: { id: userInfo.user_id,user_name:userInfo.user_name }}">
+                <mt-button type="primary" :disabled="!attentionMe" class="send-message">发送消息</mt-button>
+            </router-link>
         </div>
         <bar/>
     </div>
@@ -30,10 +32,10 @@
             return{
                 tTitle: "用户信息",
                 ifHome: false,
-                userInfo:userInfo,
-                attentioned:true,
                 attention:"attention",
-                attentionMe:true
+                userInfo:userInfo,
+                attentioned:userInfo.attentioned,
+                attentionMe:userInfo.attentionMe
             }
         },
         components:{

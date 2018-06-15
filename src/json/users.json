@@ -1,0 +1,12 @@
+[
+  {"user_id":"1","user_name":"漂亮的小姐姐","age":"18","avatar":"/static/images/xjj.jpg","city":"北京","stata_message":"我最近在学写Vue项目，虽然很难，但是我很开心，假的！！！"},
+  {"user_id":"2","user_name":"真的很漂亮","age":"20","avatar":"/static/images/xjj1.jpg","city":"上海","stata_message":"这里写点啥呢，真的不知道"},
+  {"user_id":"3","user_name":"不漂亮？不存在的","age":"35","avatar":"/static/images/xjj2.jpg","city":"广州","stata_message":"上面的一点都不漂亮"},
+  {"user_id":"4","user_name":"我真的是小哥哥","age":"22","avatar":"/static/images/xgg.jpg","city":"上海","stata_message":"楼上的小姐姐，我看过了，真的很漂亮，我喜欢"},
+  {"user_id":"5","user_name":"bolean","age":"24","avatar":"/static/images/xjj1.jpg","city":"上海","stata_message":"对，我就是bolean本尊，我就是24，怎么着不服，打我呀"},
+  {"user_id":"6","user_name":"Mr.been","age":"26","avatar":"/static/images/xjj2.jpg","city":"上海","stata_message":"我是bolean的前同事，他撒谎，至少年龄撒谎了。"},
+  {"user_id":"7","user_name":"虾子","age":"60","avatar":"/static/images/xjj2.jpg","city":"上海","stata_message":"我也是bolean的前同事，他特么一点都不帅！"},
+  {"user_id":"8","user_name":"麦琪","age":"35","avatar":"/static/images/xjj1.jpg","city":"深圳","stata_message":"我真的不知道写啥了，就瞎写了，这次写多点，让点点点出来"},
+  {"user_id":"9","user_name":"HongDa","age":"100","avatar":"/static/images/xgg2.jpg","city":"东京","stata_message":"这是个车车"},
+  {"user_id":"10","user_name":"Gai","age":"xx","avatar":"/static/images/xgg1.jpg","city":"重庆","stata_message":"我非常喜欢的以为嘻哈歌手，尤其是哪首假行僧，超爱"}
+]
