@@ -1,0 +1,14 @@
+[
+  {"message_content":"什么鬼啊，我想你啊小哥哥，你想我么，小哥哥","avatar":"/static/images/xjj.jpg","message_type":"1"},
+  {"message_content":"两端对齐，项目之间的间隔都相等。","avatar":"/static/images/xgg.jpg","message_type":"0"},
+  {"message_content":"每个项目两侧的间隔相等。所以，项目之间的间隔比项目与边框的间隔大一倍。","avatar":"/static/images/xjj.jpg","message_type":"1"},
+  {"message_content":"项目的第一行文字的基线对齐。","avatar":"/static/images/xjj.jpg","message_type":"1"},
+  {"message_content":"stretch（默认值）：如果项目未设置高度或设为auto，将占满整个容器的高度。","avatar":"/static/images/xgg.jpg","message_type":"0"},
+  {"message_content":"性定义了多根轴线的对齐方式。如果项目只有一根轴线，该属性不起作用。","avatar":"/static/images/xjj.jpg","message_type":"1"},
+  {"message_content":"与交叉轴的终点对齐。","avatar":"/static/images/xgg.jpg","message_type":"0"},
+  {"message_content":"与交叉轴两端对齐，轴线之间的间隔平均分布。","avatar":"/static/images/xgg.jpg","message_type":"0"},
+  {"message_content":"stretch（默认值）：轴线占满整个交叉轴。","avatar":"/static/images/xjj.jpg","message_type":"1"},
+  {"message_content":"每根轴线两侧的间隔都相等。所以，轴线之间的间隔比轴线与边框的间隔大一倍。","avatar":"/static/images/xgg.jpg","message_type":"0"},
+  {"message_content":"与交叉轴两端对齐，轴线之间的间隔平均分布。","avatar":"/static/images/xjj.jpg","message_type":"1"},
+  {"message_content":"与交叉轴的中点对齐。","avatar":"/static/images/xgg.jpg","message_type":"0"}
+]
