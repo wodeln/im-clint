@@ -5,7 +5,9 @@
             <div class="im-message-list">
                 <div v-for="message in messages" :class="message.message_type==1?hs:me">
                     <div class="im-message-avatar">
-                        <img v-lazy="message.avatar" />
+                        <router-link :to="{name: 'user-info', params: { id:userId }}">
+                            <img v-lazy="message.avatar" />
+                        </router-link>
                     </div>
                     <div class="im-message">
                         {{message.message_content}}
@@ -15,7 +17,7 @@
         </div>
         <div class="im-message-bar">
             <div class="im-bar-send-message">
-                <mt-field placeholder="" class="messages" v-model="msg"></mt-field>
+                <mt-field placeholder="" @keyup.enter="sendMessage" class="messages" v-model="msg"></mt-field>
                 <mt-button type="primary" class="send-button" :disabled="!send" @click="sendMessage">发送</mt-button>
             </div>
 
@@ -37,8 +39,13 @@
                 hs:'im-message-hs',
                 me:'im-message-me',
                 msg:'',
-                send:false
+                send:false,
+                userId:this.$route.params.id
             }
+        },
+        mounted: function () {
+            var div = document.getElementById('content');
+            div.scrollTop = div.scrollHeight;
         },
         components: {
             topTitle,
