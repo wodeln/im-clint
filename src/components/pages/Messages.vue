@@ -10,12 +10,13 @@
                         <img slot="icon" src="../../assets/like.png" width="20" height="20">
                     </mt-cell>
                 </router-link>
-
-                <mt-cell class="im-read-message" title="未读消息">
-                    <span class="memo">未读消息</span>
-                    <mt-badge type="error">10</mt-badge>
-                    <img slot="icon" src="../../assets/talk.png" width="20" height="20">
-                </mt-cell>
+                <router-link to="/messages/user-message">
+                    <mt-cell class="im-read-message" title="未读消息">
+                        <span class="memo">未读消息</span>
+                        <mt-badge type="error">10</mt-badge>
+                        <img slot="icon" src="../../assets/talk.png" width="20" height="20">
+                    </mt-cell>
+                </router-link>
             </div>
         </div>
         <bar/>
