@@ -2,7 +2,17 @@
     <div class="page">
         <top-title :tTitle="tTitle,ifHome"/>
         <div class="page-content">
-            This is AttentionMessage page.
+            <div class="im-attention">
+                <router-link
+                v-for="attention in attentionData"
+                :to="{name:'user-info',params: { id: attention.hs_id }}"
+                :key="attention.hs_id">
+                <mt-cell class="im-attention-message" :title="attention.user_name">
+                    <span class="memo">{{attention.attention_time}}关注了你</span>
+                    <span class="avatar" slot="icon"><img :src="attention.avatar"></span>
+                </mt-cell>
+                </router-link>
+            </div>
         </div>
         <bar />
     </div>
@@ -11,12 +21,14 @@
 <script>
     import topTitle from '@/components/common/TopTitle';
     import bar from '@/components/common/Bar';
+    import attention from '../../json/attention.json';
     export default {
         name: "AttentionMessage",
         data(){
             return{
                 tTitle:'新增关注',
-                ifHome:false
+                ifHome:false,
+                attentionData:attention
             }
         },
         components:{
@@ -27,5 +39,16 @@
 </script>
 
 <style lang="scss">
-
+    .im-attention{
+        padding-top: 10px;
+        .im-attention-message{
+            .avatar{
+                img{
+                    width: 20%;
+                    border: 2px solid #eee;
+                    border-radius: 50%;
+                }
+            }
+        }
+    }
 </style>
