@@ -9,7 +9,7 @@
                 :key="attention.hs_id">
                 <mt-cell class="im-attention-message" :title="attention.user_name">
                     <span class="memo">{{attention.attention_time}}关注了你</span>
-                    <span class="avatar" slot="icon"><img :src="attention.avatar"></span>
+                    <img slot="icon" :src="attention.avatar">
                 </mt-cell>
                 </router-link>
             </div>
@@ -26,7 +26,7 @@
         name: "AttentionMessage",
         data(){
             return{
-                tTitle:'新增关注',
+                tTitle:'新关注',
                 ifHome:false,
                 attentionData:attention
             }
@@ -42,12 +42,10 @@
     .im-attention{
         padding-top: 10px;
         .im-attention-message{
-            .avatar{
-                img{
-                    width: 20%;
-                    border: 2px solid #eee;
-                    border-radius: 50%;
-                }
+            img{
+                width: 20%;
+                border: 2px solid #eee;
+                border-radius: 50%;
             }
         }
     }
