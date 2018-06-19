@@ -2,6 +2,7 @@
     <div class="page">
         <top-title :tTitle="tTitle,ifHome"/>
         <div class="page-content">
+            <v-touch tag="div" id="app" v-on:swipeleft="onSwipeLeft">
             <div class="im-user-list">
                 <ul>
                     <router-link
@@ -28,7 +29,15 @@
                         </mt-cell>
                     </router-link>
                 </ul>
+
+                <mt-popup
+                        v-model="ifShow"
+                        position="right"
+                        class="left-slider">
+                    <left />
+                </mt-popup>
             </div>
+            </v-touch>
         </div>
 
         <bar/>
@@ -38,6 +47,7 @@
 <script>
     import topTitle from '@/components/common/TopTitle';
     import bar from '@/components/common/Bar';
+    import left from '@/components/common/Left';
     import users from '../../json/users.json';
 
     export default {
@@ -46,17 +56,30 @@
             return{
                 users: users,
                 tTitle: '找朋友',
-                ifHome: true
+                ifHome: true,
+                ifShow:true,
+                imgUrl:'/static/images/xgg.jpg'
             }
         },
         components: {
             topTitle,
-            bar
+            bar,
+            left
+        },
+        methods:{
+            onSwipeLeft:function () {
+                this.ifShow=true;
+            }
         }
     }
 </script>
 
 <style lang="scss">
+    .im-user-list{
+        .v-modal{
+            background: none;
+        }
+    }
     .im-cell {
         padding: 3px 3px 3px 3px;
         margin: 0 0 3px;
@@ -114,4 +137,58 @@
         }
     }
 
+    .left-slider {
+        max-height: 70%;
+        width: 45px;
+        background-color: #D7D7D7;
+        padding-left: 3px;
+        border-top-left-radius: 5px;
+        border-bottom-left-radius: 5px;
+        overflow: auto;
+        .mint-cell {
+            background-color: transparent;
+            margin: 0;
+            min-height: 40px;
+        }
+        .im-left-cell {
+            .mint-cell-wrapper {
+                flex-direction: row-reverse;
+                padding: 0;
+                background-image: none;
+            }
+            .mint-cell-title {
+                overflow: hidden
+            }
+            .mint-cell-value {
+                width: 70%;
+                img {
+                    opacity: 0;
+                    transition: opacity .5s ease-in;
+                    &[lazy="loaded"], &[lazy="error"] {
+                        opacity: 1
+                    }
+                }
+                .im-user-avatar {
+                    position: relative;
+                    width: 100%;
+                    float: left;
+                    img {
+                        display: block;
+                        width: 100%;
+                        max-width: 100%;
+                        border-radius: 50%;
+                        border: 2px solid #eee;
+                    }
+                    span {
+                        width: 10px;
+                        height: 10px;
+                        border-radius: 50%;
+                        background-color: red;
+                        position: absolute;
+                        left: 95%;
+                    }
+                }
+            }
+        }
+    }
 </style>

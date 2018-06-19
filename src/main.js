@@ -6,14 +6,16 @@ import router from './router';
 import MintUI from 'mint-ui'
 import 'mint-ui/lib/style.css'
 import './sass/index.scss';
+import VueTouch from 'vue-touch';
 
 Vue.config.productionTip = false;
 Vue.use(MintUI);
-
+Vue.use(VueTouch, {name: 'v-touch'});
+// Vue.use(util);
 /* eslint-disable no-new */
 new Vue({
-  el: '#app',
-  router,
-  components: { App },
-  template: '<App/>'
+    el: '#app',
+    router,
+    components: {App},
+    template: '<App/>'
 })

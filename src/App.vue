@@ -1,8 +1,5 @@
 <template>
-    <div id="app">
-        <router-view />
-
-    </div>
+    <router-view />
 </template>
 
 <script>
@@ -11,6 +8,11 @@
         name: 'App',
         components: {
 
+        },
+        methods:{
+            onSwipeLeft:function () {
+                alert(333);
+            }
         }
     }
 </script>
