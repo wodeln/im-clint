@@ -7,6 +7,7 @@ import MintUI from 'mint-ui'
 import 'mint-ui/lib/style.css'
 import './sass/index.scss';
 import VueTouch from 'vue-touch';
+import store from "./store/";
 
 Vue.config.productionTip = false;
 Vue.use(MintUI);
@@ -15,9 +16,8 @@ Vue.use(VueTouch, {name: 'v-touch'});
 /* eslint-disable no-new */
 new Vue({
     el: '#app',
+    store,
     router,
     components: {App},
     template: '<App/>'
 })
-
-Vue.prototype.ifShowLeft = false;

@@ -9,10 +9,11 @@
         components: {
 
         },
-        methods:{
-            onSwipeLeft:function () {
-                alert(333);
-            }
+        created:function () {
+            console.log("323");
+        },
+        mounted:function () {
+            console.log("mounted");
         }
     }
 </script>
