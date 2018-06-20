@@ -2,18 +2,26 @@
     <div class="page">
         <top-title :tTitle="$route.params.user_name,ifHome"/>
         <div class="page-content" id="content">
-            <div class="im-message-list">
-                <div v-for="message in messages" :class="message.message_type==1?hs:me">
-                    <div class="im-message-avatar">
-                        <router-link :to="{name: 'user-info', params: { id:userId }}">
-                            <img v-lazy="message.avatar" />
-                        </router-link>
-                    </div>
-                    <div class="im-message">
-                        {{message.message_content}}
+            <v-touch v-on:swipeleft="onSwipeLeft">
+                <div class="im-message-list">
+                    <div v-for="message in messages" :class="message.message_type==1?hs:me">
+                        <div class="im-message-avatar">
+                            <router-link :to="{name: 'user-info', params: { id:userId }}">
+                                <img v-lazy="message.avatar"/>
+                            </router-link>
+                        </div>
+                        <div class="im-message">
+                            {{message.message_content}}
+                        </div>
                     </div>
                 </div>
-            </div>
+                <mt-popup
+                        v-model="ifShow"
+                        position="right"
+                        class="left-slider">
+                    <left/>
+                </mt-popup>
+            </v-touch>
         </div>
         <div class="im-message-bar">
             <div class="im-bar-send-message">
@@ -28,6 +36,7 @@
 <script>
     import topTitle from '@/components/common/TopTitle';
     import bar from '@/components/common/Bar';
+    import left from '@/components/common/Left';
     import messages from '../../json/messages.json';
 
     export default {
@@ -35,12 +44,13 @@
         data() {
             return {
                 ifHome: false,
-                messages:messages,
-                hs:'im-message-hs',
-                me:'im-message-me',
-                msg:'',
-                send:false,
-                userId:this.$route.params.id
+                messages: messages,
+                hs: 'im-message-hs',
+                me: 'im-message-me',
+                msg: '',
+                send: false,
+                userId: this.$route.params.id,
+                ifShow: false
             }
         },
         mounted: function () {
@@ -49,30 +59,34 @@
         },
         components: {
             topTitle,
-            bar
+            bar,
+            left
         },
-        watch:{
-            msg:function (n,o) {
-                if(n!='') this.send=true;
-                else this.send=false;
+        watch: {
+            msg: function (n, o) {
+                if (n != '') this.send = true;
+                else this.send = false;
             },
-            messages:function (n,o) {
-                this.$nextTick(()=>{
+            messages: function (n, o) {
+                this.$nextTick(() => {
                     var div = document.getElementById('content');
                     div.scrollTop = div.scrollHeight;
                 });
             }
 
         },
-        methods:{
-            sendMessage:function () {
+        methods: {
+            sendMessage: function () {
                 let messageObj = {
-                    message_content:this.msg,
-                    avatar:'/static/images/xgg.jpg',
-                    message_type:"0"
+                    message_content: this.msg,
+                    avatar: '/static/images/xgg.jpg',
+                    message_type: "0"
                 }
                 messages.push(messageObj);
-                this.msg="";
+                this.msg = "";
+            },
+            onSwipeLeft: function () {
+                this.ifShow = true;
             }
         }
     }
@@ -141,19 +155,19 @@
                 margin-right: 3px;
             }
             .im-message {
-                margin:3px 15px;
+                margin: 3px 15px;
                 border: 0;
                 border-radius: 8px;
                 background-color: white;
                 padding: 5px 8px 5px 5px;
                 display: flex;
                 align-items: flex-start;
-                &:after{
+                &:after {
                     position: absolute;
                     content: "";
                     width: 0;
                     height: 0;
-                    left:85%;
+                    left: 85%;
                     border-top: 8px solid transparent;
                     border-left: 12px solid white;
                     border-bottom: 8px solid transparent;
@@ -167,17 +181,17 @@
                 margin-left: 3px;
             }
             .im-message {
-                margin:3px 0 0 15px;
+                margin: 3px 0 0 15px;
                 border: 0;
                 border-radius: 8px;
                 background-color: white;
                 padding: 5px 5px 5px 8px;
-                &:before{
+                &:before {
                     position: absolute;
                     content: "";
                     width: 0;
                     height: 0;
-                    right:85%;
+                    right: 85%;
                     border-top: 8px solid transparent;
                     border-right: 12px solid white;
                     border-bottom: 8px solid transparent;

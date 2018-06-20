@@ -1,0 +1,58 @@
+.left-slider {
+  max-height: 70%;
+  width: 45px;
+  background-color: #D4D4D4;
+  padding-left: 3px;
+  border-top-left-radius: 5px;
+  border-bottom-left-radius: 5px;
+  overflow: auto;
+  .mint-cell {
+    background-color: transparent;
+    margin: 0;
+    min-height: 40px;
+  }
+  .im-left-cell {
+    .mint-cell-wrapper {
+      flex-direction: row-reverse;
+      padding: 0;
+      background-image: none;
+    }
+    .mint-cell-title {
+      overflow: hidden
+    }
+    .mint-cell-value {
+      width: 70%;
+      img {
+        opacity: 0;
+        transition: opacity .5s ease-in;
+        &[lazy="loaded"], &[lazy="error"] {
+          opacity: 1
+        }
+      }
+      .im-user-avatar {
+        position: relative;
+        width: 100%;
+        float: left;
+        img {
+          display: block;
+          width: 100%;
+          max-width: 100%;
+          border-radius: 50%;
+          border: 2px solid #eee;
+        }
+        span {
+          width: 10px;
+          height: 10px;
+          border-radius: 50%;
+          background-color: red;
+          position: absolute;
+          left: 95%;
+        }
+      }
+    }
+  }
+}
+
+.v-modal{
+  background: none;
+}

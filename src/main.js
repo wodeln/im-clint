@@ -19,3 +19,5 @@ new Vue({
     components: {App},
     template: '<App/>'
 })
+
+Vue.prototype.ifShowLeft = false;
