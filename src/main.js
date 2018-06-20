@@ -8,8 +8,10 @@ import 'mint-ui/lib/style.css'
 import './sass/index.scss';
 import VueTouch from 'vue-touch';
 import store from "./store/";
+import Axios from "./http.js";
 
 Vue.config.productionTip = false;
+Vue.prototype.$http = Axios;
 Vue.use(MintUI);
 Vue.use(VueTouch, {name: 'v-touch'});
 // Vue.use(util);

@@ -21,7 +21,6 @@
                                     <span>{{user.user_name}}</span>
                                     <span>{{user.age}}岁</span>
                                     <span>{{user.city}}</span>
-                                    <span>{{count}}</span>
                                 </li>
                                 <li class="im-user-stata-message">
                                     {{user.stata_message}}
@@ -71,10 +70,8 @@
                 this.ifShow=true;
             }
         },
-        computed:{
-            count () {
-                return this.$store.state.count
-            }
+        created:function () {
+            console.log("users");
         }
     }
 </script>
