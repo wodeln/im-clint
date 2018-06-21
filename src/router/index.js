@@ -7,11 +7,12 @@ import message from '@/components/pages/Message';
 import messages from '@/components/pages/Messages';
 import attentionMessage from '@/components/pages/AttentionMessage';
 import userMessage from '@/components/pages/UserMessage';
+import login from '@/components/Login';
 // import HelloWorld from '@/components/HelloWorld'
 
 Vue.use(Router)
 
-export default new Router({
+const router = new Router({
     routes: [
         {
             path: '/',
@@ -36,6 +37,28 @@ export default new Router({
                 {path:'attention-message',component:attentionMessage},
                 {path:'user-message',component:userMessage}
             ]
+        },{
+            path:'/login',
+            component:login
         }
     ]
+});
+
+/**
+ * 登录检查
+ */
+router.beforeEach(function (to, from, next) {
+    console.log(22);
+    if(to.path==='/login'){
+        next();
+    }
+    const logged = true;
+    if(logged){
+        next();
+    }else{
+        next('/login');
+    }
+
 })
+
+export default router;
