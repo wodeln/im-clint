@@ -15,4 +15,11 @@ axios.interceptors.request.use(
     }
 );
 
+
+axios.defaults.baseURL = "/api/v1";
+if (process.env.NODE_ENV === "production") {
+    axios.defaults.baseURL = `${process.env.VUE_APP_API_HOST}/api/${
+        process.env.VUE_APP_API_VERSION
+        }`;
+}
 export default axios;
