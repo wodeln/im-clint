@@ -71,7 +71,7 @@
             }
         },
         created:function () {
-            this.$http.get('/api')
+            this.$http.get('/')
                 .then(function (response) {
                     console.log(response.data);
                 })
