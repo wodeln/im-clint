@@ -71,7 +71,13 @@
             }
         },
         created:function () {
-            console.log("users");
+            this.$http.get('/api')
+                .then(function (response) {
+                    console.log(response.data);
+                })
+                .catch(function (error) {
+                    console.log(error);
+                });
         }
     }
 </script>
