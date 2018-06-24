@@ -13,17 +13,17 @@
 
                         <mt-cell class="im-cell">
                             <div class="im-avatar">
-                                <img v-lazy="user.avatar">
+                                <img v-lazy="'/im'+user.user_avatar">
                             </div>
                             <ul slot="title" class="im-user-info">
                                 <!-- <li class="song-title">{{ item.topTitle }}</li> -->
                                 <li>
-                                    <span>{{user.user_name}}</span>
-                                    <span>{{user.age}}岁</span>
-                                    <span>{{user.city}}</span>
+                                    <span>{{user.user_true_name}}</span>
+                                    <span>{{user.user_age}}岁</span>
+                                    <span>{{user.user_city}}</span>
                                 </li>
                                 <li class="im-user-stata-message">
-                                    {{user.stata_message}}
+                                    {{user.user_avatar}}
                                 </li>
                             </ul>
                         </mt-cell>
@@ -54,7 +54,7 @@
         name: "Users",
         data(){
             return{
-                users: users,
+                users: [],
                 tTitle: '找朋友',
                 ifHome: true,
                 ifShow:false
@@ -71,8 +71,9 @@
             }
         },
         created:function () {
-            this.$http.get('/')
-                .then(function (response) {
+            this.$http.get('/users')
+                .then((response) =>{
+                    this.users = response.data;
                     console.log(response.data);
                 })
                 .catch(function (error) {
