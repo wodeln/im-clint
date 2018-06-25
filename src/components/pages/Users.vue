@@ -74,7 +74,6 @@
             this.$http.get('/users')
                 .then((response) =>{
                     this.users = response.data;
-                    console.log(response.data);
                 })
                 .catch(function (error) {
                     console.log(error);
