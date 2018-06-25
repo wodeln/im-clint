@@ -55,7 +55,7 @@ exports.cssLoaders = function (options) {
     }
 
     // 全局Sass变量，这里使用sass-resources-loader向全局注入Sass变量
-    function generateSassResourceLoader() {
+    /*function generateSassResourceLoader() {
         var loaders = [
             cssLoader,
             'postcss-loader',
@@ -77,7 +77,7 @@ exports.cssLoaders = function (options) {
         } else {
             return ['vue-style-loader'].concat(loaders)
         }
-    }
+    }*/
 
     //返回sass 路径
     function resolveResouce(name) {
@@ -89,10 +89,10 @@ exports.cssLoaders = function (options) {
         css: generateLoaders(),
         postcss: generateLoaders(),
         less: generateLoaders('less'),
-        // sass: generateLoaders('sass', { indentedSyntax: true }),
-        // scss: generateLoaders('sass'),
-        sass: generateSassResourceLoader(),
-        scss: generateSassResourceLoader(),
+        sass: generateLoaders('sass', { indentedSyntax: true }),
+        scss: generateLoaders('sass'),
+        // sass: generateSassResourceLoader(),
+        // scss: generateSassResourceLoader(),
         stylus: generateLoaders('stylus'),
         styl: generateLoaders('stylus')
     }

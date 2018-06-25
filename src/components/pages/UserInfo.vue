@@ -66,7 +66,7 @@
     }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
     .im-user-info {
         .im-user-backimg {
             img {
@@ -86,11 +86,11 @@
             }
             .attentioned {
                 background-color: #26A2FF;
-                color: $white-base;
+                /*color: $white-base;*/
             }
         }
         .im-user-infos {
-            background-color: $white-base;
+            /*background-color: $white-base;*/
             text-align: left;
             padding: 5px 5px;
             font-size: smaller;
@@ -98,7 +98,7 @@
                 line-height: 40px;
             }
             .str {
-                color: $gray-minor;
+                /*color: $gray-minor;*/
             }
         }
     }

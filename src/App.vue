@@ -8,12 +8,6 @@
         name: 'App',
         components: {
 
-        },
-        created:function () {
-            console.log("323");
-        },
-        mounted:function () {
-            console.log("mounted");
         }
     }
 </script>

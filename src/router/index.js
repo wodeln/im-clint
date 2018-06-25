@@ -47,8 +47,8 @@ const router = new Router({
 /**
  * 登录检查
  */
+/*
 router.beforeEach(function (to, from, next) {
-    console.log(22);
     if(to.path==='/login'){
         next();
     }
@@ -60,5 +60,6 @@ router.beforeEach(function (to, from, next) {
     }
 
 })
+*/
 
 export default router;

@@ -1,9 +1,11 @@
 import axios from "axios";
-
+import router from "./router/";
+import { Popup } from 'mint-ui';
 let TOKEN;
 axios.interceptors.request.use(
     config => {
-        TOKEN = "skdjfksel;kw;elkrl;z;234";
+        console.log(123);
+        TOKEN = '382dklskwlekwlk';
         if (TOKEN) {
             config.headers.Authorization = TOKEN;
         }
@@ -15,6 +17,46 @@ axios.interceptors.request.use(
     }
 );
 
+/**
+ * 添加响应拦截器
+ *     @author jsonleex <jsonlseex@163.com>
+ */
+axios.interceptors.response.use(
+    res => res,
+    /* 错误处理 */
+    error => {
+        const callback = () => {
+            router.push({
+                path: "/login",
+                query: { redirect: router.currentRoute.fullPath }
+            });
+        };
+        const setTimeoutCallback = () => {
+            setTimeout(callback, 100);
+        };
+        if (error.response) {
+            const { status, data } = error.response;
+            switch (status) {
+                case 401:
+                    // localEvent.removeData("CURRENTUSER");
+                    callback();
+                    // Message.error(TOKEN ? "登录失效, 请重新登录" : "你还没有登录");
+                    break;
+                case 500:
+                    throw new Error("服务器错误");
+                default:
+                    // Message.error(plusMessageAnalyze(data));
+                    break;
+            }
+        } else if (error.request) {
+            console.log(error.request);
+        } else {
+            console.log("Error", error.message);
+        }
+
+        return Promise.reject(error);
+    }
+);
 
 axios.defaults.baseURL = "/im/v1";
 if (process.env.NODE_ENV === "production") {
