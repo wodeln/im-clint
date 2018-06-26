@@ -9,11 +9,13 @@ import './sass/index.scss';
 import VueTouch from 'vue-touch';
 import store from "./store/";
 import Axios from "./http.js";
+import localStore  from  '@/plugins/localStore';
 
 Vue.config.productionTip = false;
 Vue.prototype.$http = Axios;
 Vue.use(MintUI);
 Vue.use(VueTouch, {name: 'v-touch'});
+Vue.use(localStore);
 // Vue.use(util);
 /* eslint-disable no-new */
 new Vue({

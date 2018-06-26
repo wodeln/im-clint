@@ -1,11 +1,11 @@
 import axios from "axios";
 import router from "./router/";
 import { Popup } from 'mint-ui';
+import lstore from './plugins/localStore';
 let TOKEN;
 axios.interceptors.request.use(
     config => {
-        console.log(123);
-        TOKEN = '382dklskwlekwlk';
+        TOKEN = lstore.getData('IM_ACCESS_TOKEN');
         if (TOKEN) {
             config.headers.Authorization = TOKEN;
         }
@@ -38,7 +38,7 @@ axios.interceptors.response.use(
             const { status, data } = error.response;
             switch (status) {
                 case 401:
-                    // localEvent.removeData("CURRENTUSER");
+                    lstore.removeData('IM_ACCESS_TOKEN');
                     callback();
                     // Message.error(TOKEN ? "登录失效, 请重新登录" : "你还没有登录");
                     break;

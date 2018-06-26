@@ -23,6 +23,7 @@
 <script>
     import bar from '@/components/common/Bar';
     import topTitle from '@/components/common/TopTitle';
+    import lstore from '../plugins/localStore';
 
     const qs = require('qs');
 
@@ -54,7 +55,8 @@
                     })
                 )
                 .then((response) => {
-                    console.log(response.data);
+                    lstore.setData("IM_ACCESS_TOKEN",response.data);
+                    this.$router.push('/');
                 })
                 .catch(function (error) {
                     console.log(error);
