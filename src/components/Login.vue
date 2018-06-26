@@ -55,7 +55,9 @@
                     })
                 )
                 .then((response) => {
-                    lstore.setData("IM_ACCESS_TOKEN",response.data);
+                    console.log(response.data);
+                    lstore.setData("IM_ACCESS_TOKEN",response.data.token);
+                    this.$store.commit('SAVE_USER_INFO',response.data.user_info);
                     this.$router.push('/');
                 })
                 .catch(function (error) {

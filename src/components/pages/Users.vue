@@ -23,7 +23,7 @@
                                     <span>{{user.user_city}}</span>
                                 </li>
                                 <li class="im-user-stata-message">
-                                    {{user.user_avatar}}
+                                    {{user.user_stata_message}}
                                 </li>
                             </ul>
                         </mt-cell>
