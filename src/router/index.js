@@ -20,8 +20,7 @@ const router = new Router({
             component: users
         },
         {
-            path:'/user-info',
-            name:'user-info',
+            path:'/user-info/:hsid',
             component:userInfo
         },
         {

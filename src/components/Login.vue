@@ -25,6 +25,7 @@
     import topTitle from '@/components/common/TopTitle';
     import lstore from '../plugins/localStore';
 
+
     const qs = require('qs');
 
     export default {
@@ -55,7 +56,6 @@
                     })
                 )
                 .then((response) => {
-                    console.log(response.data);
                     lstore.setData("IM_ACCESS_TOKEN",response.data.token);
                     this.$store.commit('SAVE_USER_INFO',response.data.user_info);
                     this.$router.push('/');

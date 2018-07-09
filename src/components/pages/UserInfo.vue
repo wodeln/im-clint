@@ -7,13 +7,13 @@
                     <div class="im-user-backimg">
                         <mt-button :class="[{ attentioned: attentioned }, attention]" @click="attentionOpt">+ 关注
                         </mt-button>
-                        <img v-lazy="userInfo.avatar">
+                        <img v-lazy="'http://is.com:3001'+userInfo.user_avatar">
                     </div>
                     <div class="im-user-infos">
-                        <div class="im-user-nickname"><span class="str">昵称：</span>{{userInfo.user_name}}</div>
-                        <div class="im-user-nickname"><span class="str">年龄：</span>{{userInfo.age}}岁</div>
-                        <div class="im-user-nickname"><span class="str">地区：</span>{{userInfo.city}}</div>
-                        <div class="im-user-nickname"><span class="str">个性签名：</span>{{userInfo.stata_message}}</div>
+                        <div class="im-user-nickname"><span class="str">昵称：</span>{{userInfo.user_nickname}}</div>
+                        <div class="im-user-nickname"><span class="str">年龄：</span>{{userInfo.user_age}}岁</div>
+                        <div class="im-user-nickname"><span class="str">地区：</span>{{userInfo.user_city}}</div>
+                        <div class="im-user-nickname"><span class="str">个性签名：</span>{{userInfo.user_stata_message}}</div>
                     </div>
                 </div>
                 <router-link :to="{name: 'message', params: { id: userInfo.user_id,user_name:userInfo.user_name }}">
@@ -44,7 +44,7 @@
                 tTitle: "用户信息",
                 ifHome: false,
                 attention: "attention",
-                userInfo: userInfo,
+                userInfo: [],
                 attentioned: userInfo.attentioned,
                 attentionMe: userInfo.attentionMe,
                 ifShow: false,
@@ -62,6 +62,14 @@
             onSwipeLeft: function () {
                 this.ifShow = true;
             }
+        },
+        mounted:function () {
+            this.$http.get('/user/user?hsid='+this.$route.params.hsid)
+                .then(
+                    (res)=>{
+                        this.userInfo = res.data;
+                    }
+                )
         }
     }
 </script>
@@ -86,11 +94,11 @@
             }
             .attentioned {
                 background-color: #26A2FF;
-                /*color: $white-base;*/
+                color: #ffffff;
             }
         }
         .im-user-infos {
-            /*background-color: $white-base;*/
+            background-color: #ffffff;
             text-align: left;
             padding: 5px 5px;
             font-size: smaller;
@@ -98,7 +106,7 @@
                 line-height: 40px;
             }
             .str {
-                /*color: $gray-minor;*/
+                color: #9B9B9B;
             }
         }
     }

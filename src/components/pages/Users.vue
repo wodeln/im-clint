@@ -7,7 +7,7 @@
                 <ul>
                     <router-link
                         tag='li'
-                        :to="{name: 'user-info', params: { id: user.user_id }}"
+                        :to="'/user-info/'+user.user_id"
                         v-for="user in users"
                         :key="user.user_id">
 
@@ -18,7 +18,7 @@
                             <ul slot="title" class="im-user-info">
                                 <!-- <li class="song-title">{{ item.topTitle }}</li> -->
                                 <li>
-                                    <span>{{user.user_true_name}}</span>
+                                    <span>{{user.user_nickname}}</span>
                                     <span>{{user.user_age}}岁</span>
                                     <span>{{user.user_city}}</span>
                                 </li>
@@ -48,7 +48,6 @@
     import topTitle from '@/components/common/TopTitle';
     import bar from '@/components/common/Bar';
     import left from '@/components/common/Left';
-    import users from '../../json/users.json';
 
     export default {
         name: "Users",
@@ -71,7 +70,7 @@
             }
         },
         created:function () {
-            this.$http.get('/users')
+            this.$http.get('/user/users')
                 .then((response) =>{
                     this.users = response.data;
                 })

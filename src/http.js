@@ -6,9 +6,10 @@ let TOKEN;
 axios.interceptors.request.use(
     config => {
         TOKEN = lstore.getData('IM_ACCESS_TOKEN');
-        if (TOKEN) {
+        TOKEN ? config.headers.Authorization = TOKEN : config.headers.Authorization = "";
+       /* if (TOKEN) {
             config.headers.Authorization = TOKEN;
-        }
+        }*/
         return config;
     },
     error => {
@@ -60,8 +61,8 @@ axios.interceptors.response.use(
 
 axios.defaults.baseURL = "/im/v1";
 if (process.env.NODE_ENV === "production") {
-    axios.defaults.baseURL = `${process.env.VUE_APP_API_HOST}/api/${
-        process.env.VUE_APP_API_VERSION
+    axios.defaults.baseURL = `${process.env.APP_API_HOST}/api/${
+        process.env.APP_API_VERSION
         }`;
 }
 export default axios;

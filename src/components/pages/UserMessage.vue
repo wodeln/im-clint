@@ -42,7 +42,7 @@
     import bar from '@/components/common/Bar';
     import left from '@/components/common/Left';
     import newMessages from '../../json/new_messages.json';
-    import Vue from 'vue';
+
 
     export default {
         name: "UserMessage",
@@ -65,10 +65,6 @@
             }
         }
     }
-    Vue.filter('mn', function (num) {
-        return num > 99 ? "99+" : num;
-    });
-
 </script>
 
 <style lang="scss">
