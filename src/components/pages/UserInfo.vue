@@ -35,7 +35,6 @@
     import topTitle from '@/components/common/TopTitle';
     import bar from '@/components/common/Bar';
     import left from '@/components/common/Left';
-    import userInfo from '../../json/user_info.json';
 
     export default {
         name: "UserInfo",
@@ -45,8 +44,8 @@
                 ifHome: false,
                 attention: "attention",
                 userInfo: [],
-                attentioned: userInfo.attentioned,
-                attentionMe: userInfo.attentionMe,
+                attentioned: "",
+                attentionMe: "",
                 ifShow: false,
             }
         },
@@ -58,6 +57,11 @@
         methods: {
             attentionOpt: function () {
                 this.attentioned = !this.attentioned;
+                this.$http.post('/user/attentionOpt',
+                                {
+                                    hsid:this.$route.params.hsid,
+                                    attention:this.attentioned
+                                });
             },
             onSwipeLeft: function () {
                 this.ifShow = true;
@@ -68,6 +72,8 @@
                 .then(
                     (res)=>{
                         this.userInfo = res.data;
+                        this.attentioned = res.data.attentioned;
+                        this.attentionMe = res.data.attentionMe;
                     }
                 )
         }
