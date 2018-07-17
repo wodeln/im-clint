@@ -2,14 +2,24 @@ import axios from "axios";
 import router from "./router/";
 import { Popup } from 'mint-ui';
 import lstore from './plugins/localStore';
+import store from "./store/";
+import Vue from 'vue';
+import VueSocketio from 'vue-socket.io';
 let TOKEN;
 axios.interceptors.request.use(
     config => {
         TOKEN = lstore.getData('IM_ACCESS_TOKEN');
-        TOKEN ? config.headers.Authorization = TOKEN : config.headers.Authorization = "";
-       /* if (TOKEN) {
+        // TOKEN ? config.headers.Authorization = TOKEN : config.headers.Authorization = "";
+        if (TOKEN) {
+            if(!store.state.message.connect){
+                let user = lstore.getData('USER_INFO');
+                let url = `${process.env.APP_API_HOST}?user_id=${user.user_id}&user_avatar=${user.user_avatar}&user_nickname=${user.user_nickname}`;
+                Vue.use(VueSocketio, url, store);
+            }
             config.headers.Authorization = TOKEN;
-        }*/
+        }else {
+            config.headers.Authorization = "";
+        }
         return config;
     },
     error => {
@@ -61,8 +71,6 @@ axios.interceptors.response.use(
 
 axios.defaults.baseURL = "/im/v1";
 if (process.env.NODE_ENV === "production") {
-    axios.defaults.baseURL = `${process.env.APP_API_HOST}/api/${
-        process.env.APP_API_VERSION
-        }`;
+    axios.defaults.baseURL = `${process.env.APP_API_HOST}/api/${process.env.APP_API_VERSION}`;
 }
 export default axios;

@@ -11,16 +11,13 @@ import store from "./store/";
 import Axios from "./http.js";
 import localStore  from  '@/plugins/localStore';
 import * as filters from './filters'
-import VueSocketio from 'vue-socket.io';
 
 Vue.config.productionTip = false;
 Vue.prototype.$http = Axios;
 Vue.use(MintUI);
 Vue.use(VueTouch, {name: 'v-touch'});
 Vue.use(localStore);
-Vue.use(VueSocketio, 'http://127.0.0.1:3001');
-// Vue.use(util);
-/* eslint-disable no-new */
+
 for (const k in filters){
     Vue.filter(k,filters[k]);
 }
