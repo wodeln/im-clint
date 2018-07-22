@@ -6,8 +6,9 @@
                 <div class="im-message-list">
                     <div v-for="message in messages" :class="message.from_user_id==userId?hs:me">
                         <div class="im-message-avatar">
-                            <router-link :to="'/user-info/'+userId">
+                            <router-link :to="'/user-info/'+message.from_user_id==userId?message.to_user_id+'':message.from_user_id+''">
                                 <img :src="message|imgUrl"/>
+                                <!--<img v-lazy="'http://is.com:3001'+message.from_user_id==userId?message.to_user_avatar:message.from_user_avatar">-->
                             </router-link>
                         </div>
                         <div class="im-message">
@@ -86,7 +87,7 @@
         filters: {
             imgUrl: (message) => {
                 if (!message) return ''
-                return message.from_user_id == this.userId ? 'http://is.com:3001' + message.to_user_avatar : 'http://is.com:3001' + message.from_user_avatar;
+                return message.from_user_id == this.userId ? `${process.env.APP_API_HOST}${message.to_user_avatar}` : `${process.env.APP_API_HOST}${message.from_user_avatar}`;
             }
         },
         components: {
@@ -186,6 +187,7 @@
                     display: block;
                     width: 100%;
                     max-width: 100%;
+                    /*opacity: 0;*/
                     transition: opacity .5s ease-in;
                     &[lazy="loaded"], &[lazy="error"] {
                         opacity: 1
