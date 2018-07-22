@@ -2,9 +2,11 @@
     <div class="page">
         <top-title :tTitle="$route.params.user_name,ifHome"/>
         <div class="page-content" id="content">
-            <v-touch v-on:swipeleft="onSwipeLeft">
+
                 <div class="im-message-list">
-                    <div v-for="message in messages" :class="message.from_user_id==userId?hs:me">
+                    <div v-for="message in messages"
+                         v-bind:class="[message.from_user_id==userId ? 'im-message-hs' : 'im-message-me']"
+                         v-if="!message.message_type">
                         <div class="im-message-avatar">
                             <router-link :to="'/user-info/'+message.from_user_id==userId?message.to_user_id+'':message.from_user_id+''">
                                 <img :src="message|imgUrl"/>
@@ -16,19 +18,19 @@
                         </div>
                     </div>
                 </div>
-                <div>{{ssss}}</div>
+                <!--<div>{{ssss}}</div>-->
                 <mt-popup
                         v-model="ifShow"
                         position="right"
                         class="left-slider">
                     <left/>
                 </mt-popup>
-            </v-touch>
+
         </div>
 
         <div class="im-message-bar">
             <div class="im-bar-send-message">
-                <mt-field placeholder="" @keyup.enter="sendMessage" class="messages" v-model="msg"></mt-field>
+                <mt-field placeholder="" class="messages" v-model="msg"></mt-field>
                 <mt-button type="primary" class="send-button" :disabled="!send" @click="sendMessage">发送</mt-button>
             </div>
 
@@ -49,40 +51,15 @@
             return {
                 ifHome: false,
                 messages: [],
-                hs: 'im-message-hs',
-                me: 'im-message-me',
                 msg: '',
                 send: false,
                 userId: this.$route.params.hsid,
-                ifShow: false,
-                havaBind: false
+                ifShow: false
             }
-        },
-        sockets: {
-            USER_MESSAGE: function (val) {
-                if(this.havaBind){
-                    this.$store.commit('RECEVIE_MESSAGE', val);
-                }else {
-                    this.messages.push(val);
-                    this.$store.commit('RECEVIE_MESSAGE', val);
-                }
-
-
-            }
-        },
-        computed:{
-          ssss(){
-              if(this.$store.state.message.MESSAGE.messages.get(parseInt(this.$route.params.hsid))!=undefined){
-                  this.havaBind=true;
-              }
-          }
         },
         mounted: function () {
             var div = document.getElementById('content');
             div.scrollTop = div.scrollHeight;
-            if(this.$store.state.message.MESSAGE.messages.get(parseInt(this.$route.params.hsid))!=undefined){
-                this.messages = this.$store.state.message.MESSAGE.messages.get(parseInt(this.$route.params.hsid));
-            }
         },
         filters: {
             imgUrl: (message) => {
@@ -110,7 +87,6 @@
         },
         methods: {
             sendMessage: function () {
-                console.log("sendMessage");
                 let fromUser = lstore.getData("USER_INFO");
                 let toUserAvatar = "/public/images/upload/" + this.$route.params.avatar;
                 let messageObj = {
@@ -124,18 +100,22 @@
                     message_content: this.msg,
                 }
                 this.$socket.emit('userMessage', messageObj);
-
-                if(this.havaBind){
-                    this.$store.commit('SEND_MESSAGE', messageObj);
-                }else{
-                    this.$store.commit('SEND_MESSAGE', messageObj);
-                    this.messages.push(messageObj);
-                }
+                this.$store.commit('SEND_MESSAGE', messageObj);
                 this.msg = "";
             },
             onSwipeLeft: function () {
                 this.ifShow = true;
             }
+        },
+        created:function () {
+            let aa = {
+                message_type:true,
+                to_user_id:parseInt(this.$route.params.hsid),
+            }
+            if(this.$store.state.message.MESSAGE.messages.get(parseInt(this.$route.params.hsid))==undefined){
+                this.$store.commit('SEND_MESSAGE', aa);
+            }
+            this.messages = this.$store.state.message.MESSAGE.messages.get(parseInt(this.$route.params.hsid));
         }
     }
 </script>

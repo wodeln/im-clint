@@ -5,14 +5,17 @@
             <v-touch v-on:swipeleft="onSwipeLeft">
                 <div class="im-user-info">
                     <div class="im-user-backimg">
-                        <mt-button :class="[{ attentioned: userInfo.attentioned }, attention]" @click="attentionOpt">+ 关注</mt-button>
+                        <mt-button :class="[{ attentioned: userInfo.attentioned }, attention]" @click="attentionOpt">+
+                            关注
+                        </mt-button>
                         <img v-lazy="'http://is.com:3001'+userInfo.user_avatar">
                     </div>
                     <div class="im-user-infos">
                         <div class="im-user-nickname"><span class="str">昵称：</span>{{userInfo.user_nickname}}</div>
                         <div class="im-user-nickname"><span class="str">年龄：</span>{{userInfo.user_age}}岁</div>
                         <div class="im-user-nickname"><span class="str">地区：</span>{{userInfo.user_city}}</div>
-                        <div class="im-user-nickname"><span class="str">个性签名：</span>{{userInfo.user_stata_message}}</div>
+                        <div class="im-user-nickname"><span class="str">个性签名：</span>{{userInfo.user_stata_message}}
+                        </div>
                     </div>
                 </div>
                 <router-link :to="'/message/'+userInfo.user_id+'/'+avatarName+'/'+userInfo.user_nickname">
@@ -56,19 +59,19 @@
             attentionOpt: function () {
                 this.attentioned = !this.attentioned;
                 this.$http.post('/user/attentionOpt',
-                                {
-                                    hsid:this.$route.params.hsid,
-                                    attention:this.attentioned
-                                });
+                    {
+                        hsid: this.$route.params.hsid,
+                        attention: this.attentioned
+                    });
             },
             onSwipeLeft: function () {
                 this.ifShow = true;
             }
         },
-        mounted:function () {
-            this.$http.get('/user/user?hsid='+this.$route.params.hsid)
+        mounted: function () {
+            this.$http.get('/user/user?hsid=' + this.$route.params.hsid)
                 .then(
-                    (res)=>{
+                    (res) => {
                         this.userInfo = res.data;
                         this.avatarName = res.data.user_avatar.split('/')[4];
                     }
@@ -113,9 +116,11 @@
             }
         }
     }
-    .page-content{
+
+    .page-content {
         text-align: center;
     }
+
     .send-message {
         width: 95%;
         margin-top: 20px;

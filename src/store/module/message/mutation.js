@@ -1,7 +1,7 @@
 export default {
     SOCKET_CONNECT: (state, status) => {
         state.MESSAGE.connect = true;
-    },/*
+    },
     SOCKET_USER_MESSAGE: (state, messages) => {
         for(let message of messages){
             if(state.MESSAGE.messages.get(message.from_user_id)){
@@ -12,8 +12,9 @@ export default {
                 messageArr.push(message)
                 state.MESSAGE.messages.set(message.from_user_id,messageArr);
             }
+            // state.MESSAGE.messages.push(message);
         }
-    },*/
+    },
     RECEVIE_MESSAGE:(state,message)=>{
         if(state.MESSAGE.messages.get(message.from_user_id)){
             state.MESSAGE.messages.get(message.from_user_id).push(message);
