@@ -11,11 +11,6 @@ axios.interceptors.request.use(
         TOKEN = lstore.getData('IM_ACCESS_TOKEN');
         // TOKEN ? config.headers.Authorization = TOKEN : config.headers.Authorization = "";
         if (TOKEN) {
-            if(!store.state.message.connect){
-                let user = lstore.getData('USER_INFO');
-                let url = `${process.env.APP_API_HOST}?user_id=${user.user_id}&user_avatar=${user.user_avatar}&user_nickname=${user.user_nickname}`;
-                Vue.use(VueSocketio, url, store);
-            }
             config.headers.Authorization = TOKEN;
         }else {
             config.headers.Authorization = "";

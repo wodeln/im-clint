@@ -24,8 +24,7 @@ const router = new Router({
             component:userInfo
         },
         {
-            path:'/message',
-            name:'message',
+            path:'/message/:hsid/:avatar/:nickname',
             component:message
         },
         {

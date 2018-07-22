@@ -4,10 +4,10 @@
         <div class="page-content" id="content">
             <v-touch v-on:swipeleft="onSwipeLeft">
                 <div class="im-message-list">
-                    <div v-for="message in messages" :class="message.message_type==1?hs:me">
+                    <div v-for="message in messages" :class="message.from_user_id==userId?hs:me">
                         <div class="im-message-avatar">
-                            <router-link :to="{name: 'user-info', params: { id:userId }}">
-                                <img v-lazy="message.avatar"/>
+                            <router-link :to="'/user-info/'+userId">
+                                <img :src="message|imgUrl"/>
                             </router-link>
                         </div>
                         <div class="im-message">
@@ -15,6 +15,7 @@
                         </div>
                     </div>
                 </div>
+                <div>{{ssss}}</div>
                 <mt-popup
                         v-model="ifShow"
                         position="right"
@@ -23,6 +24,7 @@
                 </mt-popup>
             </v-touch>
         </div>
+
         <div class="im-message-bar">
             <div class="im-bar-send-message">
                 <mt-field placeholder="" @keyup.enter="sendMessage" class="messages" v-model="msg"></mt-field>
@@ -37,25 +39,55 @@
     import topTitle from '@/components/common/TopTitle';
     import bar from '@/components/common/Bar';
     import left from '@/components/common/Left';
-    import messages from '../../json/messages.json';
+    import lstore from '../../plugins/localStore';
+    // import VueSocketio from 'vue-socket.io';
 
     export default {
         name: "Message",
         data() {
             return {
                 ifHome: false,
-                messages: messages,
+                messages: [],
                 hs: 'im-message-hs',
                 me: 'im-message-me',
                 msg: '',
                 send: false,
-                userId: this.$route.params.id,
-                ifShow: false
+                userId: this.$route.params.hsid,
+                ifShow: false,
+                havaBind: false
             }
+        },
+        sockets: {
+            USER_MESSAGE: function (val) {
+                if(this.havaBind){
+                    this.$store.commit('RECEVIE_MESSAGE', val);
+                }else {
+                    this.messages.push(val);
+                    this.$store.commit('RECEVIE_MESSAGE', val);
+                }
+
+
+            }
+        },
+        computed:{
+          ssss(){
+              if(this.$store.state.message.MESSAGE.messages.get(parseInt(this.$route.params.hsid))!=undefined){
+                  this.havaBind=true;
+              }
+          }
         },
         mounted: function () {
             var div = document.getElementById('content');
             div.scrollTop = div.scrollHeight;
+            if(this.$store.state.message.MESSAGE.messages.get(parseInt(this.$route.params.hsid))!=undefined){
+                this.messages = this.$store.state.message.MESSAGE.messages.get(parseInt(this.$route.params.hsid));
+            }
+        },
+        filters: {
+            imgUrl: (message) => {
+                if (!message) return ''
+                return message.from_user_id == this.userId ? 'http://is.com:3001' + message.to_user_avatar : 'http://is.com:3001' + message.from_user_avatar;
+            }
         },
         components: {
             topTitle,
@@ -77,12 +109,27 @@
         },
         methods: {
             sendMessage: function () {
+                console.log("sendMessage");
+                let fromUser = lstore.getData("USER_INFO");
+                let toUserAvatar = "/public/images/upload/" + this.$route.params.avatar;
                 let messageObj = {
+                    from_user_id: fromUser.user_id,
+                    from_user_avatar: fromUser.user_avatar,
+                    from_user_nickname: fromUser.user_nickname,
+                    to_user_id: parseInt(this.$route.params.hsid),
+                    to_user_avatar: toUserAvatar,
+                    to_user_nickname: this.$route.params.nickname,
+                    message_group: fromUser.user_id + parseInt(this.$route.params.hsid),
                     message_content: this.msg,
-                    avatar: '/static/images/xgg.jpg',
-                    message_type: "0"
                 }
-                messages.push(messageObj);
+                this.$socket.emit('userMessage', messageObj);
+
+                if(this.havaBind){
+                    this.$store.commit('SEND_MESSAGE', messageObj);
+                }else{
+                    this.$store.commit('SEND_MESSAGE', messageObj);
+                    this.messages.push(messageObj);
+                }
                 this.msg = "";
             },
             onSwipeLeft: function () {
@@ -139,7 +186,6 @@
                     display: block;
                     width: 100%;
                     max-width: 100%;
-                    opacity: 0;
                     transition: opacity .5s ease-in;
                     &[lazy="loaded"], &[lazy="error"] {
                         opacity: 1
@@ -155,14 +201,14 @@
                 margin-right: 3px;
             }
             .im-message {
-                margin: 3px 15px;
+                margin: 5px 4px;
                 border: 0;
                 border-radius: 8px;
                 background-color: white;
                 padding: 5px 8px 5px 5px;
                 display: flex;
                 align-items: flex-start;
-                &:after {
+                /*&:after {
                     position: absolute;
                     content: "";
                     width: 0;
@@ -171,7 +217,7 @@
                     border-top: 8px solid transparent;
                     border-left: 12px solid white;
                     border-bottom: 8px solid transparent;
-                }
+                }*/
             }
 
         }
@@ -181,12 +227,12 @@
                 margin-left: 3px;
             }
             .im-message {
-                margin: 3px 0 0 15px;
+                margin: 5px 0 0 4px;
                 border: 0;
                 border-radius: 8px;
                 background-color: white;
                 padding: 5px 5px 5px 8px;
-                &:before {
+                /*&:before {
                     position: absolute;
                     content: "";
                     width: 0;
@@ -195,7 +241,7 @@
                     border-top: 8px solid transparent;
                     border-right: 12px solid white;
                     border-bottom: 8px solid transparent;
-                }
+                }*/
             }
             text-align: left;
         }

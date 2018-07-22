@@ -5,8 +5,7 @@
             <v-touch v-on:swipeleft="onSwipeLeft">
                 <div class="im-user-info">
                     <div class="im-user-backimg">
-                        <mt-button :class="[{ attentioned: attentioned }, attention]" @click="attentionOpt">+ 关注
-                        </mt-button>
+                        <mt-button :class="[{ attentioned: userInfo.attentioned }, attention]" @click="attentionOpt">+ 关注</mt-button>
                         <img v-lazy="'http://is.com:3001'+userInfo.user_avatar">
                     </div>
                     <div class="im-user-infos">
@@ -16,8 +15,8 @@
                         <div class="im-user-nickname"><span class="str">个性签名：</span>{{userInfo.user_stata_message}}</div>
                     </div>
                 </div>
-                <router-link :to="{name: 'message', params: { id: userInfo.user_id,user_name:userInfo.user_name }}">
-                    <mt-button type="primary" :disabled="!attentionMe" class="send-message">发送消息</mt-button>
+                <router-link :to="'/message/'+userInfo.user_id+'/'+avatarName+'/'+userInfo.user_nickname">
+                    <mt-button type="primary" :disabled="!userInfo.attentionMe" class="send-message">发送消息</mt-button>
                 </router-link>
                 <mt-popup
                         v-model="ifShow"
@@ -43,10 +42,9 @@
                 tTitle: "用户信息",
                 ifHome: false,
                 attention: "attention",
-                userInfo: [],
-                attentioned: "",
-                attentionMe: "",
+                userInfo: {},
                 ifShow: false,
+                avatarName: ""
             }
         },
         components: {
@@ -72,8 +70,7 @@
                 .then(
                     (res)=>{
                         this.userInfo = res.data;
-                        this.attentioned = res.data.attentioned;
-                        this.attentionMe = res.data.attentionMe;
+                        this.avatarName = res.data.user_avatar.split('/')[4];
                     }
                 )
         }
@@ -116,7 +113,9 @@
             }
         }
     }
-
+    .page-content{
+        text-align: center;
+    }
     .send-message {
         width: 95%;
         margin-top: 20px;
